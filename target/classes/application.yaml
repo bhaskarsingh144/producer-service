@@ -1,0 +1,29 @@
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092  # Kafka broker address
+    consumer:
+      group-id: my-consumer-group
+      auto-offset-reset: earliest  # Options: earliest, latest, none
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 10
+      batch-size: 16384
+      buffer-memory: 33554432
+      properties:
+        spring.json.add.type.headers: false
+    listener:
+      ack-mode: manual  # Options: record, batch, time, count, manual
+
+application.log.level: DEBUG
+
+# Other optional Kafka settings can be included based on requirements
+# e.g., additional security configurations, SSL settings, etc.

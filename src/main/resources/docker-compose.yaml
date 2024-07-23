@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+  druid:
+    image: druid:latest
+    ports:
+      - "8080:8080"
+      - "8788:8788"
+    environment:
+      # Configure Druid to connect to local ZooKeeper
+#      druid.extensions.lookupList: []
+      druid.zk.servicePort: 2181
+      druid.zk.connectionString: zookeeper:2181
+      # Additional configurations for Druid (optional)
